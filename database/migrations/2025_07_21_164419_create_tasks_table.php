@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->date('due_date');
-            $table->boolean('completed')->default(false);
+            $table->enum('status', ['to_do', 'in_progress', 'in_review', 'done'])->default('to_do');
+            $table->enum('priority', ['low', 'medium', 'high'])->default('low');
             $table->timestamps();
         });
     }

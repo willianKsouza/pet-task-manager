@@ -23,7 +23,7 @@ Siga os passos abaixo para clonar e rodar a API localmente:
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/laravel-todo-api.git
+git clone git@github.com:willianKsouza/pet-task-manager.git
 cd laravel-todo-api
 
 

@@ -15,18 +15,11 @@ class TaskFactory extends Factory
         return [
             'title' => $this->faker->sentence(3),
             'description' => $this->faker->paragraph(),
-            'due_date' => $this->faker->dateTimeBetween('now', '+1 month'),
+            'due_date' => $this->faker->dateTimeBetween('now', '+1 month')->format('Y-m-d'),
             'status' => $this->faker->randomElement(['to_do', 'in_progress', 'in_review', 'done']),
             'priority' => $this->faker->randomElement(['low', 'medium', 'high']),
+            'user_id' => User::factory(),
+            'created_by' => User::factory()
         ];
-    }
-
-    public function configure()
-    {
-        return $this->afterCreating(function (Task $task) {
-            // Associa de 1 a 3 usuários aleatórios (dentre os 9 existentes)
-            $userIds = User::inRandomOrder()->limit(rand(1, 2))->pluck('id');
-            $task->users()->attach($userIds);
-        });
     }
 }

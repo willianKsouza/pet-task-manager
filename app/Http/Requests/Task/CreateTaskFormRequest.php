@@ -24,7 +24,8 @@ class CreateTaskFormRequest extends FormRequest
         return [
                 'title' => ['required', 'string', 'max:255'],
                 'description' => ['required', 'string'],
-                'due_date' => ['required', 'date_format:Y-m-d H:i:s', 'after:now'],
+                'due_date' => ['required', 'date', 'after_or_equal:today'],
+                'user_id' => ['required', 'exists:users,id'],
                 'priority' => ['required', 'in:low,medium,high'],
                 'status' => ['required', 'in:to_do,in_progress,in_review,done'],
         ];

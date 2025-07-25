@@ -8,10 +8,13 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class TaskCreatedEvent
+class TaskCreatedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,7 +23,9 @@ class TaskCreatedEvent
      */
     public function __construct(    
         public Task $task
-    ) {}
+    ) {
+
+    }
 
 
     /**
@@ -30,8 +35,9 @@ class TaskCreatedEvent
      */
     public function broadcastOn(): array
     {
+
         return [
-            new PrivateChannel("task-created.{$this->task->id}"),
+            new PrivateChannel('tasks.channel.' . $this->task->user_id),
         ];
     }
 }

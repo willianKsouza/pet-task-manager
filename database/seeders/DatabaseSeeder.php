@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'willian kenneth de souza',
+            'name' => 'admin member',
             'email' => 'admin@gmail.com',
             'role' => 'admin',
         ]);
 
-        Task::factory()->count(10)->create();
+        Task::factory()->count(30)->create();
     }
 }

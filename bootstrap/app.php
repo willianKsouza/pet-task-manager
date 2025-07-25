@@ -11,6 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
         commands: __DIR__ . '/../routes/console.php',
+        channels:__DIR__ . '/../routes/channels.php',
         health: '/up',
         then: function () {
             Route::middleware('api')
@@ -39,12 +40,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     'type' => basename(get_class($e)),
                     'status' => $e->getCode() ?: 500,
                     'message' => $e->getMessage() ?: 'An unexpected error occurred',
-                    'timestamp' => now()->toISOString(),
-                    'debug' => app()->environment('local', 'testing') ? [
-                        'file' => $e->getFile(),
-                        'line' => $e->getLine(),
-                        'trace' => $e->getTraceAsString()
-                    ] : null
+                    'timestamp' => now()->toISOString()
                 ]
             ], $e->getCode() ?: 500);
         });

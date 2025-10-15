@@ -14,15 +14,14 @@ return [
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
-    'paths' => ['api/*', 'sanctum/csrf-cookie','/broadcasting/auth'], // '/broadcasting/auth' é crucial
-    'allowed_origins' => ['http://localhost:5173'], // A URL exata do seu Vue app
+    'paths' => ['api/*', 'sanctum/csrf-cookie','broadcasting/auth'],
 
     'allowed_methods' => ['*'],
 
-    // 'allowed_origins' => [
-    //     'http://localhost:5173',
-    //     'http://127.0.0.1:5173',
-    // ],
+    'allowed_origins' => [
+        'http://localhost:5173',
+        'http://127.0.0.1:5173',
+    ],
 
     'allowed_origins_patterns' => [],
 

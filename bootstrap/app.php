@@ -11,7 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
         commands: __DIR__ . '/../routes/console.php',
-        channels:__DIR__ . '/../routes/channels.php',
+        channels: __DIR__ . '/../routes/channels.php',
         health: '/up',
         then: function () {
             Route::middleware('api')
@@ -19,14 +19,18 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(base_path('routes/api.php'));
         }
     )
+    ->withBroadcasting(
+        __DIR__ . '/../routes/channels.php',
+        ['prefix' => 'api', 'middleware' => ['api', 'auth:sanctum']],
+    )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-             $exceptions->render(function (Throwable $e, Request $request) {
-            
+        $exceptions->render(function (Throwable $e, Request $request) {
+
             $className = get_class($e);
-            
+
             $handlers = GlobalExceptionHandler::$handlers;
 
             if (array_key_exists($className, $handlers)) {
@@ -34,7 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 $apiHandler = new GlobalExceptionHandler();
                 return $apiHandler->$method($e, $request);
             }
-            
+
             return response()->json([
                 'error' => [
                     'type' => basename(get_class($e)),

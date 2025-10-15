@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Task;
 
 use App\DTO\Task\CreateTaskDTO;
+use App\Events\TaskCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\CreateTaskFormRequest;
 use App\Service\Task\CreateTaskService;
@@ -20,7 +21,7 @@ class CreateTaskController extends Controller
 
         $dueDate = new DateTime($validated['due_date']);
 
-        $this->createTaskService->execute(new CreateTaskDTO(
+        $task = $this->createTaskService->execute(new CreateTaskDTO(
             $validated['title'],
             $validated['description'],
             $dueDate->format('Y-m-d'),
@@ -29,7 +30,7 @@ class CreateTaskController extends Controller
             $validated['user_id'],
             $request->user()->id
         ));
-
-        return response('', 201);
+        
+        return response()->json($task);
     }
 }

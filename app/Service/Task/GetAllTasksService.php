@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Log;
 
 class GetAllTasksService
 {
+    public function __construct() {}
+
     public function execute(GetAllTasksDTO $dto)
     {
         $query = Task::query();
@@ -46,7 +48,6 @@ class GetAllTasksService
 
         return $query
             ->orderBy('created_at', 'desc')
-            ->paginate($dto->perPage, ['*'], 'page', $dto->page)
-            ->toArray();
+            ->paginate($dto->perPage, ['*'], 'page', $dto->page);
     }
 }

@@ -6,7 +6,7 @@ class CreateTaskDTO
     public function __construct(
         public string $title,
         public string $description,
-        public string $dueDate,
+        public string $due_date,
         public string $status,
         public string $priority,
         public int $user_id,

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Task;
+namespace App\Http\Controllers\User;
 
-use App\DTO\Task\GetAllTasksDTO;
-use App\Interfaces\Task\GetAllTasksServiceInterface;
+use App\DTO\User\GetAllUsersDTO;
 use App\Http\Controllers\Controller;
+use App\Interfaces\User\GetAllUsersServiceInterface;
 use Illuminate\Http\Request;
 
-class GetAllTaskController extends Controller
+class GetAllUsersController extends Controller
 {
     public function __construct(
-        public GetAllTasksServiceInterface $getAllTasksService
+        public GetAllUsersServiceInterface $getAllTasksService
     ) {}
 
     /**
@@ -18,7 +18,7 @@ class GetAllTaskController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $dto = new GetAllTasksDTO(
+        $dto = new GetAllUsersDTO(
             $request->user()->role,
             $request->user()->id
         );

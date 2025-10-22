@@ -13,9 +13,6 @@ use Tests\TestCase;
 
 class CreateTaskServiceTest extends TestCase
 {
-    /**
-     * A basic test example.
-     */
     public function test_create_task_with_valid_data(): void
     {
         Event::fake();

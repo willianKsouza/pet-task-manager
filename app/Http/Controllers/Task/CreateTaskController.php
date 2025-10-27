@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\CreateTaskFormRequest;
 use App\Service\Task\CreateTaskService;
 use DateTime;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Log;
 
 class CreateTaskController extends Controller
@@ -21,7 +22,7 @@ class CreateTaskController extends Controller
 
         $dueDate = new DateTime($validated['due_date']);
 
-        $task = $this->createTaskService->execute(new CreateTaskDTO(
+        $dto = new CreateTaskDTO(
             $validated['title'],
             $validated['description'],
             $dueDate->format('Y-m-d'),
@@ -29,8 +30,12 @@ class CreateTaskController extends Controller
             $validated['priority'],
             $validated['user_id'],
             $request->user()->id
-        ));
+        );
+
+        $task = $this->createTaskService->execute($dto);
         
-        return response()->json($task);
+        return response()->json([
+            'data' => $task->toResource()
+        ], 201);
     }
 }

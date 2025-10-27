@@ -11,7 +11,8 @@ use App\Http\Controllers\Task\GetAllTaskController;
 use App\Http\Controllers\Task\UpdateTaskController;
 use App\Http\Controllers\User\GetAuthenticatedUserController;
 
-Route::post('/login', LoginController::class);
+Route::post('/login', LoginController::class)
+    ->name('login');
 
 Route::get('/user', GetAuthenticatedUserController::class)
     ->middleware('auth:sanctum');

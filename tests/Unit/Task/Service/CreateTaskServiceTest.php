@@ -17,10 +17,12 @@ class CreateTaskServiceTest extends TestCase
     {
         Event::fake();
 
+        $futureDate = now()->addDay()->format('Y-m-d H:i:s');
+
         $dto = new CreateTaskDTO(
             'Test Task',
             'Test Description',
-            '2020-10-26 00:00:00',
+            $futureDate,
             'pending',
             'high',
             2,
@@ -31,7 +33,7 @@ class CreateTaskServiceTest extends TestCase
             'id' => 2,
             'title' => 'Test Task',
             'description' => 'Test Description',
-            'due_date' => '2020-10-26 00:00:00',
+            'due_date' => $futureDate,
             'status' => 'pending',
             'priority' => 'high',
             'user_id' => 2,

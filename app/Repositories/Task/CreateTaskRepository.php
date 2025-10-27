@@ -14,7 +14,7 @@ class CreateTaskRepository implements CreateTaskRepositoryInterface
         return Task::create([
             'title' => $dto->title,
             'description' => $dto->description,
-            'due_date' => $dto->dueDate,
+            'due_date' => $dto->due_date,
             'status' => $dto->status,
             'priority' => $dto->priority,
             'user_id' => $dto->user_id,

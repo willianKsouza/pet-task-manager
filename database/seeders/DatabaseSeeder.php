@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        // User::factory(10)->create();
 
         User::factory()->create([
             'name' => 'admin member',
@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        Task::factory()->count(30)->create();
+        // Task::factory()->count(20)->create();
     }
 }

@@ -12,9 +12,8 @@ class LoginController extends Controller
     {
         $credentials = $request->validated();
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return response()->noContent();
-        }
+        Auth::attempt($credentials);
+
+        return response()->noContent();
     }
 }

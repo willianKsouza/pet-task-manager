@@ -17,12 +17,12 @@ class CreateTaskServiceTest extends TestCase
     {
         Event::fake();
 
-        $futureDate = now()->addDay()->format('Y-m-d H:i:s');
+        $future_date = now()->addDay()->format('Y-m-d H:i:s');
 
         $dto = new CreateTaskDTO(
             'Test Task',
             'Test Description',
-            $futureDate,
+            $future_date,
             'pending',
             'high',
             2,
@@ -33,13 +33,13 @@ class CreateTaskServiceTest extends TestCase
             'id' => 2,
             'title' => 'Test Task',
             'description' => 'Test Description',
-            'due_date' => $futureDate,
+            'due_date' => $future_date,
             'status' => 'pending',
             'priority' => 'high',
             'user_id' => 2,
             'created_by' => 2,
-            'created_at' => '2020-10-20 00:00:00',
-            'updated_at' => '2020-10-20 00:00:00',
+            'created_at' => now()->format('Y-m-d H:i:s'),
+            'updated_at' => now()->format('Y-m-d H:i:s'),
             'deleted_at' => null,
         ]);
 
@@ -53,20 +53,22 @@ class CreateTaskServiceTest extends TestCase
         $service = new CreateTaskService($mock);
 
         $data = $service->execute($dto);
-        $this->assertEquals($data->title, $dto->title);
-        $this->assertEquals($data->description, $dto->description);
-        $this->assertEquals($data->due_date, $dto->due_date);
-        $this->assertEquals($data->status, $dto->status);
+        $this->assertEquals($dto->title, $data->title);
+        $this->assertEquals($dto->description, $data->description);
+        $this->assertEquals($dto->due_date, $data->due_date);
+        $this->assertEquals($dto->status, $data->status);
     }
 
     public function test_task_created_event_is_dispatched(): void
     {
         Event::fake();
 
+        $future_date = now()->addDay()->format('Y-m-d H:i:s');
+
         $dto = new CreateTaskDTO(
             'Test Task',
             'Test Description',
-            '2020-10-26 00:00:00',
+            $future_date,
             'pending',
             'high',
             2,
@@ -77,13 +79,13 @@ class CreateTaskServiceTest extends TestCase
             'id' => 2,
             'title' => 'Test Task',
             'description' => 'Test Description',
-            'due_date' => '2020-10-26 00:00:00',
+            'due_date' => $future_date,
             'status' => 'pending',
             'priority' => 'high',
             'user_id' => 2,
             'created_by' => 2,
-            'created_at' => '2020-10-20 00:00:00',
-            'updated_at' => '2020-10-20 00:00:00',
+            'created_at' => now()->format('Y-m-d H:i:s'),
+            'updated_at' => now()->format('Y-m-d H:i:s'),
             'deleted_at' => null,
         ]);
 
@@ -98,7 +100,7 @@ class CreateTaskServiceTest extends TestCase
         $service->execute($dto);
 
         Event::assertDispatched(TaskCreatedEvent::class);
-        
+
         Event::assertDispatchedTimes(TaskCreatedEvent::class, 1);
     }
 }

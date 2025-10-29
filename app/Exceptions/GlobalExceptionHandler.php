@@ -175,11 +175,11 @@ class GlobalExceptionHandler
                 return response()->json([
                     'error' => [
                         'type' => $this->getExceptionType($e),
-                        'status' => 500,
+                        'status' => 503,
                         'message' => 'A database error occurred. Please try again later.',
                         'timestamp' => now()->toISOString(),
                     ]
-                ], 500);
+                ], 503);
         }
     }
 

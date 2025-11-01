@@ -5,13 +5,25 @@ namespace App\DTO\Task;
 class UpdateTaskDTO
 {
     public function __construct(
-        public string $id,
-        public ?string $title,
-        public ?string $description,
-        public ?string $dueDate,
-        public ?string $status,
-        public ?string $priority,
-        public int $user_id
-    ) {
+        public int $id,
+        public ?string $title = null,
+        public ?string $description = null,
+        public ?string $due_date = null,
+        public ?string $status = null,
+        public ?string $priority = null,
+        public ?int $user_id = null,
+    ) {}
+
+    public static function fromArray(int $id, array $data): self
+    {
+        return new self(
+            $id,
+            $data['title'] ?? null,
+            $data['description'] ?? null,
+            $data['due_date'] ?? null,
+            $data['status'] ?? null,
+            $data['priority'] ?? null,
+            $data['user_id'] ?? null,
+        );
     }
 }

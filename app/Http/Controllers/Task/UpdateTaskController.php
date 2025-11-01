@@ -15,19 +15,10 @@ class UpdateTaskController extends Controller
     public function __invoke(UpdateTaskFormRequest $request, int $id)
     {
         $validated = $request->validated();
-        
-        $dueDate = new DateTime($validated['due_date']);
-
-        $this->updateTaskService->execute(new UpdateTaskDTO(
-            $id,
-            $validated['title'],
-            $validated['description'],
-            $dueDate->format('Y-m-d'),
-            $validated['status'],
-            $validated['priority'],
-            $validated['user_id']
-        ));
-
+        $dto = UpdateTaskDTO::fromArray($id, $validated);
+       $this->updateTaskService->execute(
+    new UpdateTaskDTO($id, ...array_values($validated))
+);
         return response()->noContent();
     }
 }

@@ -10,18 +10,18 @@ class UpdateTaskService
     public function execute(UpdateTaskDTO $dto): array
     {
         $task = Task::findOrFail($dto->id);
-     
+
         $dtoData = [
             'title' => $dto->title,
             'description' => $dto->description,
-            'due_date' => $dto->dueDate,
+            'due_date' => $dto->due_date,
             'status' => $dto->status,
             'priority' => $dto->priority,
             'user_id' => $dto->user_id,
         ];
-   
+
         $updates = collect($dtoData)->filter(function ($value, $key) use ($task) {
-            return $task->{$key} !== $value;
+            return $value !== null && $task->{$key} !== $value;
         });
 
         if ($updates->isNotEmpty()) {

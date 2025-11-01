@@ -7,7 +7,6 @@ use App\Events\TaskCreatedEvent;
 use App\Interfaces\Task\CreateTaskRepositoryInterface;
 use App\Models\Task;
 
-
 class CreateTaskService
 {
     public function __construct(private CreateTaskRepositoryInterface $createTaskRepository) {}

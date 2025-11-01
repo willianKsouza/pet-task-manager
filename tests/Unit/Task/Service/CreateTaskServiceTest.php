@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Unit;
-
 use App\DTO\Task\CreateTaskDTO;
 use App\Events\TaskCreatedEvent;
 use App\Interfaces\Task\CreateTaskRepositoryInterface;
 use App\Models\Task;
 use App\Service\Task\CreateTaskService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 use Tests\TestCase;
@@ -17,7 +16,7 @@ class CreateTaskServiceTest extends TestCase
     {
         Event::fake();
 
-        $future_date = now()->addDay()->format('Y-m-d H:i:s');
+        $future_date = Carbon::now()->addDays()->format('Y-m-d H:i:s');
 
         $dto = new CreateTaskDTO(
             'Test Task',

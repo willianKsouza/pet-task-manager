@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Interfaces\Task\CreateTaskRepositoryInterface;
+use App\Interfaces\Task\GetAllTasksRepositoryInterface;
 use App\Interfaces\User\GetAllUsersServiceInterface;
 use App\Repositories\Task\CreateTaskRepository;
+use App\Repositories\Task\GetAllTaskRepository;
 use App\Service\User\GetAllUsersService;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CreateTaskRepositoryInterface::class,
             CreateTaskRepository::class
+        );
+
+        $this->app->bind(
+            GetAllTasksRepositoryInterface::class,
+            GetAllTaskRepository::class
         );
 
     }

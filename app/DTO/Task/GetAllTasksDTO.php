@@ -5,13 +5,13 @@ namespace App\DTO\Task;
 class GetAllTasksDTO
 {
     public function __construct(
-        public readonly string $role,
-        public readonly int $id,
-        public readonly ?string $status = null,
-        public readonly ?string $search = null,
-        public readonly bool $searchByName = false,
-        public readonly bool $searchByDescription = false,
-        public readonly ?int $page = 1,
-        public readonly ?int $perPage = 9,
+        public string $role,
+        public int $id,
+        public ?string $status = null,
+        public ?string $search = null,
+        public bool $searchByName = false,
+        public bool $searchByDescription = false,
+        public ?int $page = 1,
+        public ?int $perPage = 9,
     ) {}
 }

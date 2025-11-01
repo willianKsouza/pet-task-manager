@@ -14,14 +14,39 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'admin member',
-            'email' => 'admin@gmail.com',
-            'role' => 'admin',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'admin member',
+        //     'email' => 'admin@gmail.com',
+        //     'role' => 'admin',
+        // ]);
 
         // Task::factory()->count(20)->create();
+
+        $admin = User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@gmail.com',
+            'role' => 'admin',
+            'password' => bcrypt('password'),
+        ]);
+
+        $users = User::factory(10)->create([
+            'role' => 'user',
+        ]);
+
+        $userIds = $users->pluck('id')->toArray();
+
+
+        Task::factory()
+            ->count(30)
+            ->create()
+            ->each(function ($task) use ($admin, $userIds) {
+                $task->update([
+                    'user_id' => $userIds[array_rand($userIds)],
+                    'created_by' => $admin->id,
+                ]);
+            });
     }
 }
